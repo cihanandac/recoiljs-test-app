@@ -1,11 +1,13 @@
 import { useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { todoState } from "../state/atoms/TodoState";
 import Todo from "./Todo";
+import { totalTodos } from "../state/selectors/TotalTodos";
 
 export default function Todos() {
   const [todos, setTodos] = useRecoilState(todoState);
   const [inputText, setInputText] = useState("");
+  const totalTodoState = useRecoilValue(totalTodos);
 
   function addTodo() {
     setTodos((prevTodos) => [
@@ -26,6 +28,7 @@ export default function Todos() {
 
   return (
     <main>
+      <div>Total Todos: {totalTodoState}</div>
       <input
         value={inputText}
         onChange={handleInputChange}
